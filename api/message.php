@@ -1,6 +1,6 @@
 <?php
-define("CODE_NO_CREDS", 501);
 define("CODE_EMPTY_MSG", 400);
+define("CODE_NO_CREDS", 501);
 define("CODE_SQL_ERR", 500);
 define("CODE_SUCCESS", 200);
 define("DEBUG", true);
