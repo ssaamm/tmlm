@@ -17,3 +17,5 @@ function onGoClicked() {
     request.send();
 }
 
+window["onGoClicked"] = onGoClicked;
+
