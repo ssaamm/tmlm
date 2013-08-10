@@ -17,7 +17,7 @@ function onGoClicked() {
         }
     };
     var msg = document.getElementById("msg_in").value;
-    request.open("GET", "./script/message.php?msg=" + msg, true);
+    request.open("GET", "./api/message.php?msg=" + msg, true);
     request.send();
 }
 
