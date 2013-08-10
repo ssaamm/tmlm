@@ -6,8 +6,8 @@ define("CODE_SUCCESS", 200);
 define("DEBUG", true);
 
 function clean($str) {
-    static $specialChars = array("'",   "\\",   "%",  "_");
-    static $replaceWith  = array("\\'", "\\\\", "\%", "\_");
+    static $specialChars = array("\\",   "%",  "_",  "'");
+    static $replaceWith  = array("\\\\", "\%", "\_", "\\'");
     return str_replace($specialChars, $replaceWith, $str);
 }
 
@@ -47,7 +47,11 @@ try {
 } catch (PDOException $e) {
     $response["response"] = CODE_SQL_ERR;
     $response["message"]  = "SQL error";
-    if (DEBUG) { $response["message"] .= " " . $e->getMessage(); }
+    if (DEBUG) {
+        $response["message"] .= " " . $e->getMessage();
+        $response["message"] .= " " . "INSERT INTO messages(used, message) " .
+            "VALUES(0, '" . clean($_GET["msg"]) . "')";
+    }
     die(json_encode($response));
 }
 
