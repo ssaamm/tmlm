@@ -1,11 +1,10 @@
 body {
     font-size: 75%;
     background-color: #ffffff;
-    font-family: sans;
+    font-family: sans-serif;
 }
 
 h1 {
-    font-style: normal;
     font-weight: bold;
     font-size: 3em;
 }
