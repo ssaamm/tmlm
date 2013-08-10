@@ -5,6 +5,12 @@ define("CODE_SQL_ERR", 500);
 define("CODE_SUCCESS", 200);
 define("DEBUG", true);
 
+function clean($str) {
+    static $specialChars = array("'",   "\\",   "%",  "_");
+    static $replaceWith  = array("\\'", "\\\\", "\%", "\_");
+    return str_replace($specialChars, $replaceWith, $str);
+}
+
 header("Content-Type: application/json; charset=utf-8");
 include "/var/www_be/tmlm/creds.php";
 
@@ -25,7 +31,7 @@ $db = new PDO("mysql:host=localhost;dbname=tmlm;charset=utf8", $un, $pw,
 try {
     // Insert the given message
     $stmt = $db->prepare("INSERT INTO messages(used, message) VALUES(0, '" .
-        $_GET["msg"] . "')");
+        clean($_GET["msg"]) . "')");
     $stmt->execute();
     // Get an unused message
     $stmt = $db->query("SELECT message FROM `messages` WHERE used = 0 LIMIT 1");
@@ -33,7 +39,7 @@ try {
     $msg = $row["message"];
     // Set that message to be used
     $stmt = $db->prepare("UPDATE messages SET used = 1 " .
-        "WHERE message = '$msg' AND used = 0 LIMIT 1");
+        "WHERE message = '" . clean($msg) . "' AND used = 0 LIMIT 1");
     $stmt->execute();
 
     $response["response"] = CODE_SUCCESS;
