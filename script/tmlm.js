@@ -1,7 +1,3 @@
-function onLoad() {
-    window.console && console.log("Hello");
-}
-
 function onGoClicked() {
     var request;
     try {
@@ -21,8 +17,3 @@ function onGoClicked() {
     request.send();
 }
 
-if (window.addEventListener) {
-    window.addEventListener("load", onLoad, false);
-} else if (window.attachEvent) {// IE
-    window.attachEvent("onload", onLoad);
-}
