@@ -21,7 +21,7 @@ if (!isset($un) || !isset($pw)) {
 }
 if (empty($_GET["msg"])) {
     $response["response"] = CODE_EMPTY_MSG;
-    $response["message"]  = "Empty message";
+    $response["message"]  = "Please enter a message";
     die(json_encode($response));
 }
 
