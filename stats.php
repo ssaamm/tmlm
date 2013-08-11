@@ -1,3 +1,13 @@
+<?php
+/**
+ * file: stats.php
+ * author: Samuel Taylor
+ *
+ * Displays the top 10 most commonly used words
+ */
+include "/var/www_be/tmlm/creds.php";
+define("DEBUG", false);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +19,6 @@
         <div id="wrapper">
             <h1>take a message, leave a message</h1>
 <?php
-include "/var/www_be/tmlm/creds.php";
 $db = new PDO("mysql:host=localhost;dbname=tmlm;charset=utf8", $un, $pw,
     array(PDO::ATTR_EMULATE_PREPARES => false,
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -27,7 +36,7 @@ try {
             }
         }
     }
-    arsort($wordCounts);
+    arsort($wordCounts);// Sort on values, high to low
     echo "<table>";
     echo "<tr><th>rank</th><th>word</th><th>count</th></tr>";
     $rank = 1;
@@ -40,6 +49,7 @@ try {
     }
     echo "</table>";
 } catch (PDOException $e) {
+    if (DEBUG) { echo $e->getMessage(); }
 }
 ?>
         </div>
