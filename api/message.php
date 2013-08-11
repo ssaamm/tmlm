@@ -1,10 +1,29 @@
 <?php
+/**
+ * file: message.php
+ * author: Samuel Taylor
+ *
+ * The message API. Adds a given message and outputs an unused message from the
+ * database. tmlm.js expects the output of this API to be valid JSON.
+ */
+// Response codes
 define("CODE_EMPTY_MSG", 400);
 define("CODE_NO_CREDS", 501);
 define("CODE_SQL_ERR", 500);
 define("CODE_SUCCESS", 200);
-define("DEBUG", true);
+// When DEBUG is true, extra SQL error info is put in $response["message"]
+define("DEBUG", false);
 
+/**
+ * clean
+ *
+ * Gets rid of special SQL characters in a string.
+ *
+ * Parameters:
+ *  str: the string to be cleaned
+ *
+ * Return value: the string, with special characters replaced.
+ */
 function clean($str) {
     static $specialChars = array("\\",   "%",  "_",  "'");
     static $replaceWith  = array("\\\\", "\%", "\_", "\\'");
@@ -16,7 +35,7 @@ include "/var/www_be/tmlm/creds.php";
 
 $response = array("response" => CODE_NO_CREDS, "message" => "Server error");
 
-if (!isset($un) || !isset($pw)) {
+if (!isset($un) || !isset($pw)) {// creds.php should define these
     die(json_encode($response));
 }
 if (empty($_GET["msg"])) {
@@ -47,11 +66,7 @@ try {
 } catch (PDOException $e) {
     $response["response"] = CODE_SQL_ERR;
     $response["message"]  = "SQL error";
-    if (DEBUG) {
-        $response["message"] .= " " . $e->getMessage();
-        $response["message"] .= " " . "INSERT INTO messages(used, message) " .
-            "VALUES(0, '" . clean($_GET["msg"]) . "')";
-    }
+    if (DEBUG) { $response["message"] .= " " . $e->getMessage(); }
     die(json_encode($response));
 }
 
