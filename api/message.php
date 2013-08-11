@@ -59,19 +59,19 @@ try {
     $stmt = $db->query("SELECT message FROM `messages` WHERE used = 0 LIMIT 1");
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $msg = $row["message"];
-    // Set that message to be used
+    // Set that message as used
     $stmt = $db->prepare("UPDATE messages SET used = 1 " .
         "WHERE message = '" . clean($msg) . "' AND used = 0 LIMIT 1");
     $stmt->execute();
-
-    $response["response"] = CODE_SUCCESS;
-    $response["message"]  = $msg;
 } catch (PDOException $e) {
     $response["response"] = CODE_SQL_ERR;
     $response["message"]  = "SQL error";
     if (DEBUG) { $response["message"] .= " " . $e->getMessage(); }
     die(json_encode($response));
 }
+
+$response["response"] = CODE_SUCCESS;
+$response["message"]  = htmlspecialchars($msg, ENT_HTML5);
 
 echo json_encode($response);
 ?>
