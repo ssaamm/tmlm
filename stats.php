@@ -3,10 +3,12 @@
  * file: stats.php
  * author: Samuel Taylor
  *
- * Displays the top 10 most commonly used words
+ * Displays the most commonly used words.
  */
 include "/var/www_be/tmlm/creds.php";
 define("DEBUG", false);
+// The number of words to show
+define("MAX_WORDS", 15);
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,21 +38,20 @@ try {
             }
         }
     }
-    arsort($wordCounts);// Sort on values, high to low
-    echo "<table>";
-    echo "<tr><th>rank</th><th>word</th><th>count</th></tr>";
-    $rank = 1;
-    foreach ($wordCounts as $word => $count) {
-        echo "<tr><td>$rank</td><td>$word</td><td>$count</td></tr>";
-        $rank++;
-        if ($rank > 10) {
-            break;
-        }
-    }
-    echo "</table>";
 } catch (PDOException $e) {
     if (DEBUG) { echo $e->getMessage(); }
 }
+
+arsort($wordCounts);// Sort on values, high to low
+echo "<table>";
+echo "<tr><th>rank</th><th>word</th><th>count</th></tr>";
+$rank = 1;
+foreach ($wordCounts as $word => $count) {
+    echo "<tr><td>$rank</td><td>$word</td><td>$count</td></tr>";
+    $rank++;
+    if ($rank > MAX_WORDS) { break; }
+}
+echo "</table>";
 ?>
         </div>
     </body>
