@@ -1,0 +1,23 @@
+body {
+    font-size: 75%;
+    background-color: #ffffff;
+    font-family: sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 3em;
+}
+
+table {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#wrapper {
+    margin: 3em 10% 0px;
+    background-color: #ffffff;
+    text-align: center;
+}
+

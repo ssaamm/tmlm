@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Take a Message, Leave a Message Stats</title>
-        <link href="./style/tmlm.css" rel="stylesheet" type="text/css">
+        <link href="./style/stats.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="wrapper">
@@ -29,9 +29,14 @@ try {
     }
     arsort($wordCounts);
     echo "<table>";
-    echo "<tr><th>Word</th><th>Count</th></tr>";
+    echo "<tr><th>rank</th><th>word</th><th>count</th></tr>";
+    $rank = 1;
     foreach ($wordCounts as $word => $count) {
-        echo "<tr><td>$word</td><td>$count</td></tr>";
+        echo "<tr><td>$rank</td><td>$word</td><td>$count</td></tr>";
+        $rank++;
+        if ($rank > 10) {
+            break;
+        }
     }
     echo "</table>";
 } catch (PDOException $e) {
