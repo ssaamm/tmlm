@@ -42,7 +42,7 @@ if (empty($_GET["msg"])) {
     $response["response"] = CODE_EMPTY_MSG;
     $response["message"]  = "Please enter a message";
     die(json_encode($response));
-} elseif (count($_GET["msg"]) > 10000) {
+} elseif (strlen($_GET["msg"]) > 10000) {
     $response["response"] = CODE_LONG_MSG;
     $response["message"]  = "Please enter a shorter message";
 }
