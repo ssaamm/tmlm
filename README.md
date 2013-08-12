@@ -1,4 +1,5 @@
 # tmlm
+
 Take a message, leave a message
 
 [Running on my site](http://tmlm.samueltaylor.org/)
@@ -10,4 +11,6 @@ The message API (`api/message.php`) and the stats page (`stats.php`) connect to 
 I think that you could make the `message` column any string type if you wanted to. And you could also make the `used` column any integer type capable of containing 0 and 1. Not sure why you'd want to, but it's possible.
 
 The message API and the stats page also refer to `/var/www_be/tmlm/creds.php`, which contains credentials (defined as `$un` and `$pw`) for a user with SELECT, INSERT, and UPDATE privileges on the `messages` table.
+
+`log.php` in the `back` folder should be placed at `/var/www_be/tmlm/log.php`. Everything else should be able to go wherever you want it on the server.
 

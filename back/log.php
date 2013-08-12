@@ -5,7 +5,6 @@
  * 
  * Contains implementation for the Log class
  */
-
 /**
  * Log
  * android.util.Log. As of right now, it writes to a file.
