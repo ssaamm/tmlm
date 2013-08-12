@@ -6,6 +6,7 @@
  * Displays the most commonly used words.
  */
 include "/var/www_be/tmlm/creds.php";
+include "/var/www_be/tmlm/log.php";
 define("DEBUG", false);
 // The number of words to show
 define("MAX_WORDS", 15);
@@ -40,6 +41,8 @@ try {
     }
 } catch (PDOException $e) {
     if (DEBUG) { echo $e->getMessage(); }
+    Log::e("PDOException thrown (stats.php)" . PHP_EOL .
+        $e->getMessage());
 }
 
 arsort($wordCounts);// Sort on values, high to low
@@ -56,3 +59,4 @@ echo "</table>";
         </div>
     </body>
 </html>
+
