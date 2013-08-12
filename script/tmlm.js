@@ -22,6 +22,7 @@ function onGoClicked() {
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
             var response = eval("(" + request.responseText + ")");
+            // Assumes that response["message"] doesn't contain HTML
             document.getElementById("msg").innerHTML = response["message"]; 
         }
     };

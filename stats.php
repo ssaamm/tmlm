@@ -14,7 +14,7 @@ define("MAX_WORDS", 15);
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Take a Message, Leave a Message Stats</title>
+        <title>take a message, leave a message stats</title>
         <link href="./style/stats.css" rel="stylesheet" type="text/css">
     </head>
     <body>
