@@ -5,9 +5,12 @@
  * 
  * Contains implementation for the Log class
  */
+
 /**
  * Log
- * android.util.Log. As of right now, it writes to a file.
+ *
+ * A simple class for logging with log levels inspired by android.util.Log. As
+ * of right now, it writes to a few files in /var/log/tmlm/.
  */
 class Log {
     private static $logFileBase = "/var/log/tmlm/tmlm.";
