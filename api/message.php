@@ -17,21 +17,6 @@ define("CODE_SUCCESS", 200);
 define("DEBUG", false);
 
 header("Content-Type: application/json; charset=utf-8");
-/**
- * clean
- *
- * Gets rid of special SQL characters in a string.
- *
- * Parameters:
- *  str: the string to be cleaned
- *
- * Return value: the string, with special characters replaced.
- */
-function clean($str) {
-    static $specialChars = array("\\",   "%",  "_",  "'");
-    static $replaceWith  = array("\\\\", "\%", "\_", "\\'");
-    return str_replace($specialChars, $replaceWith, $str);
-}
 
 $response = array("response" => CODE_NO_CREDS, "message" => "Server error");
 
@@ -55,8 +40,8 @@ $db = new PDO("mysql:host=localhost;dbname=tmlm;charset=utf8", $un, $pw,
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 try {
     // Insert the given message
-    $stmt = $db->prepare("INSERT INTO messages(used, message) VALUES(0, '" .
-        clean($_GET["msg"]) . "')");
+    $stmt = $db->prepare("INSERT INTO messages(used, message) VALUES(0, :msg)");
+    $stmt->bindValue(":msg", $_GET["msg"], PDO::PARAM_STR);
     $stmt->execute();
     // Get an unused message
     $stmt = $db->query("SELECT message FROM `messages` WHERE used = 0 LIMIT 1");
@@ -64,7 +49,8 @@ try {
     $msg = $row["message"];
     // Set that message as used
     $stmt = $db->prepare("UPDATE messages SET used = 1 " .
-        "WHERE message = '" . clean($msg) . "' AND used = 0 LIMIT 1");
+        "WHERE message = :msg AND used = 0 LIMIT 1");
+    $stmt->bindValue(":msg", $msg, PDO::PARAM_STR);
     $stmt->execute();
 } catch (PDOException $e) {
     $response["response"] = CODE_SQL_ERR;
