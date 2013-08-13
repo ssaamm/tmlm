@@ -9,6 +9,11 @@ h1 {
     font-size: 3em;
 }
 
+h2 {
+    font-weight: bold;
+    font-size: 2em;
+}
+
 table {
     width: 80%;
     margin-left: 10%;
