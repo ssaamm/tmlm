@@ -14,10 +14,15 @@ h2 {
     font-size: 2em;
 }
 
+p {
+    font-size: 1.25em;
+}
+
 table {
     width: 80%;
     margin-left: 10%;
     margin-right: 10%;
+    font-size: 1.25em;
 }
 
 #wrapper {

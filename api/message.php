@@ -6,8 +6,8 @@
  * The message API. Adds a given message and outputs an unused message from the
  * database. tmlm.js expects the output of this API to be valid JSON.
  */
-include "/var/www_be/tmlm/log.php";
-include "/var/www_be/tmlm/creds.php";
+require_once("/var/www_be/tmlm/log.php");
+require_once("/var/www_be/tmlm/creds.php");
 // Response codes
 define("CODE_EMPTY_MSG", 400);
 define("CODE_NO_CREDS", 501);
@@ -17,6 +17,7 @@ define("CODE_SUCCESS", 200);
 define("DEBUG", false);
 
 header("Content-Type: application/json; charset=utf-8");
+include "/var/www_be/tmlm/hits.php";
 
 $response = array("response" => CODE_NO_CREDS, "message" => "Server error");
 
@@ -52,6 +53,8 @@ try {
         "WHERE message = :msg AND used = 0 LIMIT 1");
     $stmt->bindValue(":msg", $msg, PDO::PARAM_STR);
     $stmt->execute();
+    $response["response"] = CODE_SUCCESS;
+    $response["message"]  = htmlspecialchars($msg, ENT_HTML5);
 } catch (PDOException $e) {
     $response["response"] = CODE_SQL_ERR;
     $response["message"]  = "SQL error";
@@ -60,9 +63,6 @@ try {
         $e->getMessage());
     die(json_encode($response));
 }
-
-$response["response"] = CODE_SUCCESS;
-$response["message"]  = htmlspecialchars($msg, ENT_HTML5);
 
 echo json_encode($response);
 ?>

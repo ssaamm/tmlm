@@ -5,8 +5,8 @@
  *
  * Displays the most commonly used words.
  */
-include "/var/www_be/tmlm/creds.php";
-include "/var/www_be/tmlm/log.php";
+require_once("/var/www_be/tmlm/log.php");
+require_once("/var/www_be/tmlm/creds.php");
 define("DEBUG", false);
 // The number of words to show
 define("MAX_WORDS", 15);
