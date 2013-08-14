@@ -7,6 +7,7 @@
  */
 require_once("/var/www_be/tmlm/log.php");
 require_once("/var/www_be/tmlm/creds.php");
+include "/var/www_be/tmlm/hits.php";
 define("DEBUG", false);
 // The number of words to show
 define("MAX_WORDS", 15);
