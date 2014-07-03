@@ -2,8 +2,6 @@
 
 Take a message, leave a message
 
-[Running on my site](http://tmlm.samueltaylor.org/)
-
 ## Assumptions/Setup
 
 The message API (`api/message.php`) and the stats page (`stats.php`) connect to a MySQL server (or some other server compatible with the PDO MySQL interface; I use MariaDB) with a database called `tmlm` and a table called `messages`. `messages` should have two columns, `message` (of type `VARCHAR`, which holds the users' messages) and `used` (of type `BIT`, which represents whether the message has been displayed).
